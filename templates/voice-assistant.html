@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voice Assistant Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+
+    <div class="auth-box">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('login')">Login</button>
+            <button class="tab-button" onclick="showTab('signup')">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login" class="tab-content">
+            {% if login_error %}
+                <p class="error">{{ login_error }}</p>
+            {% endif %}
+            <h2>Login</h2>
+            <form action="{{ url_for('login') }}" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div id="signup" class="tab-content" style="display:none;">
+            {% if signup_error %}
+                <p class="error">{{ signup_error }}</p>
+            {% endif %}
+            {% if signup_success %}
+                <p class="success">{{ signup_success }}</p>
+            {% endif %}
+            <h2>Sign Up</h2>
+            <form action="{{ url_for('signup') }}" method="POST">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="text" name="name" placeholder="Full Name" required>
+                <button type="submit" class="btn">Register</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function showTab(tabName) {
+    const loginTab = document.getElementById("login");
+    const signupTab = document.getElementById("signup");
+    const buttons = document.getElementsByClassName("tab-button");
+
+    if(tabName === "login") {
+        loginTab.style.display = "block";
+        signupTab.style.display = "none";
+        buttons[0].classList.add("active");
+        buttons[1].classList.remove("active");
+    } else {
+        loginTab.style.display = "none";
+        signupTab.style.display = "block";
+        buttons[1].classList.add("active");
+        buttons[0].classList.remove("active");
+    }
+}
+</script>
+</body>
+</html>

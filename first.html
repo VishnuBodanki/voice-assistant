@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Command Assistant</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1d3557, #457b9d);
+      color: #f1faee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background: #e63946;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff4d5a;
+    }
+
+    .status {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-style: italic;
+      color: #a8dadc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎤 Voice Command Assistant</h1>
+  <p>Say things like: <b>"Open YouTube"</b> or <b>"Open Google"</b></p>
+
+  <button id="start-btn">Start Listening</button>
+  <div class="status" id="status">Not Listening...</div>
+
+  <script>
+    const button = document.getElementById('start-btn');
+    const status = document.getElementById('status');
+
+    // Check for Speech Recognition support
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Your browser doesn't support speech recognition. Try Chrome or Edge.");
+    } else {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+
+      // When recognition starts
+      recognition.onstart = () => {
+        status.textContent = "Listening...";
+        button.disabled = true;
+      };
+
+      // When recognition ends
+      recognition.onend = () => {
+        status.textContent = "Not Listening...";
+        button.disabled = false;
+      };
+
+      // When a result is received
+      recognition.onresult = (event) => {
+        const command = event.results[0][0].transcript.toLowerCase();
+        status.textContent = `You said: "${command}"`;
+
+        if (command.includes("open youtube")) {
+          window.open("https://www.youtube.com", "_blank");
+        } 
+        else if (command.includes("open google")) {
+          window.open("https://www.google.com", "_blank");
+        }
+        else if (command.includes("open facebook")) {
+          window.open("https://www.facebook.com", "_blank");
+        }
+        else if (command.includes("open twitter")) {
+          window.open("https://www.twitter.com", "_blank");
+        }
+        else if (command.includes("open instagram")) {
+          window.open("https://www.instagram.com", "_blank");
+        }
+        else if (command.includes("open spotify")) {
+        window.open("https://www.spotify.com", "_blank");
+       }
+       else if (command.includes("open whatsapp")) {
+       window.open("https://web.whatsapp.com", "_blank");
+       }
+       else if (command.includes("open chat gpt") || command.includes("open chatgpt")) {
+       window.open("https://chat.openai.com", "_blank");
+     }
+      else if (command.includes("open pinterest")) {
+  window.open("https://www.pinterest.com", "_blank");
+      }
+    else if (command.includes("open canva")) {
+  window.open("https://www.canva.com", "_blank");
+}
+else if (command.includes("open zoom")) {
+  window.open("https://zoom.us", "_blank");
+}
+else if (command.includes("open stack overflow") || command.includes("open stackoverflow")) {
+  window.open("https://stackoverflow.com", "_blank");
+}
+else if (command.includes("open news") || command.includes("show news")) {
+  window.open("https://news.google.com", "_blank");
+}
+else if (command.includes("open weather")) {
+  window.open("https://weather.com", "_blank");
+}
+else if (command.includes("open youtube music")) {
+  window.open("https://music.youtube.com", "_blank");
+}
+else if (command.includes("open linkedin")) {
+  window.open("https://www.linkedin.com", "_blank");
+}
+else if (command.includes("open github")) {
+  window.open("https://www.github.com", "_blank");
+}
+else if (command.includes("open netflix")) {
+  window.open("https://www.netflix.com", "_blank");
+}
+else if (command.includes("open amazon")) {
+  window.open("https://www.amazon.com", "_blank");
+}
+else if (command.includes("open flipkart")) {
+  window.open("https://www.flipkart.com", "_blank");
+}
+else if (command.includes("open calculator")) {
+  window.open("https://www.google.com/search?q=calculator", "_blank");
+}
+
+        else {
+          status.textContent = `Command not recognized: "${command}"`;
+        }
+      };
+
+      // Start recognition on button click
+      button.addEventListener('click', () => {
+        recognition.start();
+      });
+    }
+  </script>
+
+</body>
+</html>
